@@ -10,8 +10,9 @@ export const heroesReducer = (initialState = [], action) => {
       )
     case 'Modify hero':
       return initialState.map((hero) => {
+        console.log(hero.id, action.payload)
         if (hero.id === action.payload.id) {
-          return { ...hero, superhero: action.payload.hero }
+          return { ...hero, superhero: action.payload.superhero }
         } else {
           return hero
         }

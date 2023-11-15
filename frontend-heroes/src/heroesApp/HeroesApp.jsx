@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { useHeroes } from '../hooks/useHeroes'
+import { HeroCard } from '../components/HeroCard'
+import './HeroesApp.css'
+import { HeroForm } from '../components/HeroForm'
 
 export const HeroesApp = () => {
   const {
@@ -9,64 +12,56 @@ export const HeroesApp = () => {
     handleHeroByInput,
     handleModifyHero
   } = useHeroes()
-  const [heroModify, setheroModify] = useState({ id: -1, hero: '' })
+  const [activeHero, setactiveHero] = useState({ id: -1, hero: '' })
+  const [currentPage, setCurrentPage] = useState(0)
+  const heroesPerPage = 6
+  const totalPages = Math.ceil(heroes.length / heroesPerPage)
+  const startIndex = currentPage * heroesPerPage
+  const selectedHeroes = heroes.slice(startIndex, startIndex + heroesPerPage)
 
-  const modifyHero = (e) => {
-    e.preventDefault()
-    handleModifyHero(heroModify)
+  const goToNextPage = () => {
+    setCurrentPage((current) =>
+      current < totalPages - 1 ? current + 1 : current
+    )
   }
 
-  const heroById = (e) => {
-    e.preventDefault()
-    const id = e.target.id.value * 1
-    handleHeroById(id)
+  const goToPreviousPage = () => {
+    setCurrentPage((current) => (current > 0 ? current - 1 : current))
   }
-  const heroByInput = (e) => {
-    e.preventDefault()
-    handleHeroByInput(e.target.input.value)
-  }
-  const allHeroes = () => {
-    handleInitState()
-  }
+
+  // console.log(heroes)
+  console.log(selectedHeroes)
 
   return (
     <>
-      <ul>
-        {heroes.map(({ id, superhero }) => (
-          <li onClick={() => setheroModify({ id, hero: superhero })} key={id}>
-            {superhero}
-          </li>
-        ))}
-      </ul>
-      <form onSubmit={heroById}>
-        <label>
-          Find by id:
-          <input type="numbers" id="id" />
-        </label>
-        <button type="submit">Find</button>
-      </form>
-      <form onSubmit={heroByInput}>
-        <label>
-          Find by input:
-          <input type="text" id="input" />
-        </label>
-        <button type="submit">Find</button>
-      </form>
-      <form onSubmit={modifyHero}>
-        <label>
-          Modify hero
-          <input
-            type="text"
-            id="modifyInput"
-            value={heroModify.hero}
-            onChange={(e) =>
-              setheroModify({ ...heroModify, hero: e.target.value })
-            }
+      <div className="container">
+        <h1>Prueba técnica Heroes</h1>
+        <div className="wrap">
+          <HeroForm
+            activeHero={activeHero}
+            setactiveHero={setactiveHero}
+            handleHeroById={handleHeroById}
+            handleHeroByInput={handleHeroByInput}
+            handleModifyHero={handleModifyHero}
+            handleInitState={handleInitState}
           />
-        </label>
-        <button type="submit">Modify</button>
-      </form>
-      <button onClick={allHeroes}>Restore</button>
+          <div className="heroes">
+            {selectedHeroes.map((hero) => (
+              <HeroCard
+                onClick={() => setactiveHero({ hero })}
+                key={hero.id}
+                hero={hero}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="pagination">
+          {currentPage > 0 && <button onClick={goToPreviousPage}>Prev</button>}
+          {currentPage < totalPages - 1 && (
+            <button onClick={goToNextPage}>Next</button>
+          )}
+        </div>
+      </div>
     </>
   )
 }

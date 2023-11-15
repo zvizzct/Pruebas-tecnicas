@@ -1,0 +1,59 @@
+.form {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 20%;
+  height: 380px;
+}
+
+.form form {
+  margin-bottom: 15px;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form input[type='text'],
+.form input[type='number'] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.form button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form button:hover {
+  background-color: #0056b3;
+}
+
+.form button:focus {
+  outline: none;
+}
+
+/* Estilo para el botón de restauración */
+.form .btn-restore {
+  background-color: #28a745;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form .btn-restore:hover {
+  background-color: #218838;
+}

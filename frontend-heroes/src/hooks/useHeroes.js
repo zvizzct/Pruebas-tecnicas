@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
 import { heroesReducer } from './heroesReducer'
-import { heroesJson } from '../static/heroes'
+import { heroesJson } from '../data/heroes'
 
 const init = () => heroesJson
 
