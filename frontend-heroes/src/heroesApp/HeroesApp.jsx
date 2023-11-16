@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useHeroes } from '../hooks/useHeroes'
 import { HeroCard } from '../components/HeroCard'
 import './HeroesApp.css'
@@ -14,10 +14,33 @@ export const HeroesApp = () => {
   } = useHeroes()
   const [activeHero, setactiveHero] = useState({ id: -1, hero: '' })
   const [currentPage, setCurrentPage] = useState(0)
-  const heroesPerPage = 6
+  const [heroesPerPage, setHeroesPerPage] = useState(6)
+
   const totalPages = Math.ceil(heroes.length / heroesPerPage)
   const startIndex = currentPage * heroesPerPage
   const selectedHeroes = heroes.slice(startIndex, startIndex + heroesPerPage)
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth
+      if (width <= 900) {
+        setHeroesPerPage(2)
+      } else if (width <= 1300) {
+        setHeroesPerPage(4)
+      } else {
+        setHeroesPerPage(6)
+      }
+    }
+
+    // Establecer el tamaño inicial
+    handleResize()
+
+    // Escuchar los cambios de tamaño
+    window.addEventListener('resize', handleResize)
+
+    // Limpiar el evento al desmontar
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const goToNextPage = () => {
     setCurrentPage((current) =>
@@ -44,6 +67,7 @@ export const HeroesApp = () => {
             handleHeroByInput={handleHeroByInput}
             handleModifyHero={handleModifyHero}
             handleInitState={handleInitState}
+            setCurrentPage={setCurrentPage}
           />
           <div className="heroes">
             {selectedHeroes.map((hero) => (

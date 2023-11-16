@@ -47,7 +47,6 @@
   outline: none;
 }
 
-/* Estilo para el botón de restauración */
 .form .btn-restore {
   background-color: #28a745;
   margin-bottom: 20px;
@@ -56,4 +55,22 @@
 
 .form .btn-restore:hover {
   background-color: #218838;
+}
+
+@media (max-width: 1200px) {
+  .form {
+    width: 25%;
+  }
+}
+
+@media (max-width: 900px) {
+  .form {
+    width: 35%;
+  }
+}
+
+@media (max-width: 600px) {
+  .form {
+    width: 50%;
+  }
 }

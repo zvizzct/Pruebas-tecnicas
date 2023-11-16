@@ -7,7 +7,8 @@
   background-color: #f9f9f9;
   cursor: pointer;
   transition: all 0.2s;
-  height: 250px;
+  width: 100%; /* Asegúrate de que ocupen todo el ancho de la celda de la cuadrícula */
+  height: 220px;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -24,5 +25,5 @@
 }
 
 .hero-card:hover {
-  background-color: #e4e3e3;
+  background-color: rgb(223, 227, 243);
 }

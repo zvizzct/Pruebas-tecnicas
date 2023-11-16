@@ -7,7 +7,7 @@ export const HeroForm = ({
   handleHeroByInput,
   handleModifyHero,
   handleInitState,
-  currentHero
+  setCurrentPage
 }) => {
   const modifyHero = (e) => {
     e.preventDefault()
@@ -19,11 +19,13 @@ export const HeroForm = ({
     e.preventDefault()
     const id = e.target.id.value * 1
     handleHeroById(id)
+    setCurrentPage(0)
   }
 
   const heroByInput = (e) => {
     e.preventDefault()
     handleHeroByInput(e.target.input.value)
+    setCurrentPage(0)
   }
 
   const allHeroes = () => {
